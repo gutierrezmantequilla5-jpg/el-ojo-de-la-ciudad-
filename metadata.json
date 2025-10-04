@@ -1,0 +1,5 @@
+{
+  "name": "Copy of El Ojo de la Ciudad: Ficha 42B",
+  "description": "An interactive narrative horror game where the player, as Inspector Gómez, investigates an abandoned house. The experience uses a low-fi, analog horror aesthetic and leverages the Gemini API to generate unsettling evidence analysis reports, increasing player paranoia.",
+  "requestFramePermissions": []
+}
