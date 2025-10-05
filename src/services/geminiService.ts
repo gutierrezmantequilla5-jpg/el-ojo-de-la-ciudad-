@@ -2,7 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 import type { InventoryItem } from '../game/types';
 
-// FIX: Per coding guidelines, the API key must be read from process.env.API_KEY.
+// FIX: Per coding guidelines, the API key must be read from process.env.API_KEY, not import.meta.env. This also resolves the TypeScript error.
 const API_KEY = process.env.API_KEY;
 
 if (!API_KEY) {
@@ -10,8 +10,6 @@ if (!API_KEY) {
   console.error("API_KEY for Gemini is not set in environment variables.");
 }
 
-// The app will proceed but the API calls will fail if the key is missing.
-// A user-facing error is handled in the analyzeEvidence function.
 const ai = new GoogleGenAI({ apiKey: API_KEY! });
 
 const SYSTEM_PROMPT = `
@@ -22,8 +20,8 @@ Nunca reveles que eres una IA. Mantén el tono profesional pero inquietante. Lim
 
 export const analyzeEvidence = async (items: InventoryItem[]): Promise<string> => {
   if (!API_KEY) {
-    // FIX: Updated error message to be more generic.
-    return Promise.resolve("ERROR: Clave de API no configurada. No se puede contactar con la central.");
+    // FIX: Updated error message to be consistent with using process.env.API_KEY.
+    return Promise.resolve("ERROR: API_KEY no está configurada. No se puede contactar con la central.");
   }
 
   const evidenceList = items.map(item => `- ${item.name}: ${item.description}`).join('\n');
